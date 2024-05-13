@@ -13,38 +13,39 @@ class SignUpView extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(SignUpController());
     return   SafeArea(
-      child: Obx(() {
-        return Scaffold(
-          appBar: AppBar(
-            leading: IconButton(onPressed:() => Get.back(), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(onPressed:() => Get.back(), icon: const Icon(Icons.arrow_back_ios_new_rounded)),
+        ),
+        body: const SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 20,vertical: 50),
+          child: Column(
+            children: [
+              SignUpHeaderWidget(image: 'assets/images/auth/login_header.png', title: "Let's Talk", subTitle: 'Get in touch'),
+              SignUpFormWidget(),
+            ],
           ),
-          body: const SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20,vertical: 50),
-            child: Column(
-              children: [
-                SignUpHeaderWidget(image: 'assets/images/app_logo.png', title: 'FisherFolk', subTitle: 'Get a fresh fish'),
-                SignUpFormWidget(),
-              ],
+        ),
+        bottomNavigationBar: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                shape: const ContinuousRectangleBorder(),
+                minimumSize: const Size(double.infinity, 50)
             ),
+            onPressed: () => controller.signUp(), child:const Text('Sign Up',
+          style: TextStyle(
+              color: Colors.white
           ),
-          bottomNavigationBar: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  shape: const ContinuousRectangleBorder(),
-                  minimumSize: const Size(double.infinity, 50)
-              ),
-              onPressed: () => controller.signUp(), child:const Text('Sign Up',
-            style: TextStyle(
-                color: Colors.white
-            ),
-          )),
-        );
-        // if(controller.loading.value){
-        //   return  Center(
-        //       child: Lottie.asset('assets/gif/Dolphin.json'));
-        // }
-        // else{}
-      }),
+        )),
+      )
+      // Obx(() {
+      //   return
+      //   // if(controller.loading.value){
+      //   //   return  Center(
+      //   //       child: Lottie.asset('assets/gif/Dolphin.json'));
+      //   // }
+      //   // else{}
+      // }),
     );
   }
 }

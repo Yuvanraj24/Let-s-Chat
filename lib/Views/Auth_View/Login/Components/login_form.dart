@@ -4,7 +4,6 @@ import 'package:lets_chat/Utilities/Validators/validation.dart';
 import 'package:lets_chat/ViewModels/Auth_Controllers/login_controller.dart';
 import 'package:lets_chat/Views/Auth_View/SignUp/signup_view.dart';
 
-
 class LoginFormWidget extends StatelessWidget {
   const LoginFormWidget({
     super.key,

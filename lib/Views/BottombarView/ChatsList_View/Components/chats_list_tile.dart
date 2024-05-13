@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lets_chat/ViewModels/Chats/ChatsList_Controller/chat_list_controller.dart';
 import 'package:lets_chat/Views/BottombarView/ChatMessage_View/chat_msg_view.dart';
 
 class ChatsListTile extends StatelessWidget {
@@ -8,14 +9,19 @@ class ChatsListTile extends StatelessWidget {
   final String imageUrl;
   final String time;
   final bool isMessageRead;
+  final String userId;
   const ChatsListTile({
-    required this.name, required this.lastMsg, required this.imageUrl, required this.time, required this.isMessageRead,
+    required this.name, required this.lastMsg, required this.imageUrl, required this.time, required this.isMessageRead,required this.userId,
     super.key});
 
   @override
   Widget build(BuildContext context) {
+    final chatListCtrl = Get.put(ChatsListController());
     return GestureDetector(
-      onTap: () => Get.to(ChatMsgView(receiverName: name, imageUrl: imageUrl)),
+      onTap: () {
+        chatListCtrl.currentReceiver.value = userId;
+        Get.to(ChatMsgView(receiverName: name, imageUrl: imageUrl, receiverId: userId));
+      },
       child: Container(
         padding: const EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
         child: Row(
@@ -23,10 +29,15 @@ class ChatsListTile extends StatelessWidget {
             Expanded(
               child: Row(
                 children: <Widget>[
+                  imageUrl.isNotEmpty?
                   CircleAvatar(
                     backgroundImage: NetworkImage(imageUrl),
                     maxRadius: 30,
-                  ),
+                  ):
+                  CircleAvatar(
+                      child: Center(
+                        child: Text(name.split('').first),
+                      )),
                   const SizedBox(width: 16,),
                   Expanded(
                     child: Container(

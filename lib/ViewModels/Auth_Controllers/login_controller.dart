@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lets_chat/Firebase/Auth/auth_functions.dart';
 import 'package:lets_chat/Views/Auth_View/Login/login_view.dart';
+import 'package:lets_chat/Views/main_view.dart';
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
@@ -25,7 +26,8 @@ class LoginController extends GetxController {
          int authResponse = await firebaseAuthService.signIn(email.text, password.text);
 
          if(authResponse == 200){
-           // Get.offAll(const BottomBarView());
+
+           Get.offAll(const MainView());
            Get.showSnackbar(const GetSnackBar(
              backgroundColor: Colors.blueGrey,
              message: 'Login Success',

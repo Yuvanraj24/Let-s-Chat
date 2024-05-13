@@ -48,7 +48,10 @@ final FireStoreUserService fireStoreUserService = FireStoreUserService();
         email: email.toLowerCase().trim(),
         password: password.trim()
     );
+    print('check 1');
      await firebaseAuth.currentUser!.sendEmailVerification();
+      print('check 2');
+
 
     result.user!.updateDisplayName(fullName);
     result.user!.reload();

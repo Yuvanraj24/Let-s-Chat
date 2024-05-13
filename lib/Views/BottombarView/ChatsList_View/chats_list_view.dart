@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lets_chat/ViewModels/Chats/ChatsList_Controller/chat_list_controller.dart';
 import 'package:lets_chat/Views/BottombarView/ChatsList_View/Components/chats_list_tile.dart';
+import 'package:lets_chat/Views/BottombarView/ChatsList_View/Users_View/users_view.dart';
 
 class ChatsListView extends StatelessWidget {
   const ChatsListView({super.key});
@@ -22,23 +23,25 @@ class ChatsListView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     const Text("Conversations",style: TextStyle(fontSize: 32,fontWeight: FontWeight.bold),),
-                    Container(
-                      padding: const EdgeInsets.only(left: 8,right: 8,top: 2,bottom: 2),
-                      height: 30,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.pink[50],
-                      ),
-                      child: const Row(
-                        children: <Widget>[
-                          Icon(Icons.add,color: Colors.pink,size: 20,),
-                          SizedBox(width: 2,),
-                          Text("Add New",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
-                        ],
+                    InkWell(
+                      onTap: () => Get.to(const UsersView()),
+                      child: Container(
+                        padding: const EdgeInsets.only(left: 8,right: 8,top: 2,bottom: 2),
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.pink[50],
+                        ),
+                        child: const Row(
+                          children: <Widget>[
+                            Icon(Icons.add,color: Colors.pink,size: 20,),
+                            SizedBox(width: 2,),
+                            Text("Add New",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                          ],
+                        ),
                       ),
                     )
-                  ],
-                ),
+                  ]),
               ),
             ),
             Padding(
@@ -60,20 +63,23 @@ class ChatsListView extends StatelessWidget {
                 ),
               ),
             ),
-            ListView.builder(
-              itemCount: chatsListController.chatUsers.length,
-              shrinkWrap: true,
-              padding: const EdgeInsets.only(top: 16),
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index){
-                return ChatsListTile(
-                  name: chatsListController.chatUsers[index].name,
-                  lastMsg: chatsListController.chatUsers[index].lastMessage,
-                  imageUrl: chatsListController.chatUsers[index].imageURL,
-                  time: chatsListController.chatUsers[index].time,
-                  isMessageRead: (index == 0 || index == 3)?true:false,
-                );
-              }),
+            Obx(
+              () => ListView.builder(
+                itemCount: chatsListController.chatUsers.length,
+                shrinkWrap: true,
+                padding: const EdgeInsets.only(top: 16),
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index){
+                  return ChatsListTile(
+                    name: chatsListController.chatUsers[index].name,
+                    lastMsg: chatsListController.chatUsers[index].lastMessage,
+                    imageUrl: chatsListController.chatUsers[index].imageURL,
+                    time: chatsListController.chatUsers[index].time,
+                    isMessageRead: (index == 0 || index == 3)?true:false,
+                    userId: chatsListController.chatUsers[index].userId,
+                  );
+                }),
+            ),
           ],
         ),
       ),

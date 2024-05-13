@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:lets_chat/ViewModels/Chats/Chat_Controller/chat_controller.dart';
 
 class ChatMsgView extends StatelessWidget {
   final String receiverName;
   final String imageUrl;
+  final String receiverId;
   const ChatMsgView({
     required this.receiverName,
     required this.imageUrl,
+    required this.receiverId,
     super.key});
 
   @override
@@ -31,10 +32,15 @@ class ChatMsgView extends StatelessWidget {
                     icon: const Icon(Icons.arrow_back,color: Colors.black,),
                   ),
                   const SizedBox(width: 2,),
+                   imageUrl.isNotEmpty?
                    CircleAvatar(
                     backgroundImage: NetworkImage(imageUrl),
                     maxRadius: 20,
-                  ),
+                  ):
+                   CircleAvatar(
+                    child: Center(
+                      child: Text(receiverName.split('').first),
+                    )),
                   const SizedBox(width: 12,),
                   Expanded(
                     child: Column(
@@ -60,7 +66,7 @@ class ChatMsgView extends StatelessWidget {
               reverse: true,
               itemCount: chatController.messages.length,
               shrinkWrap: true,
-              padding: const EdgeInsets.only(top: 10,bottom: 10),
+              padding: const EdgeInsets.only(top: 10,bottom: 50),
               physics: const BouncingScrollPhysics(),
               itemBuilder: (context, index){
                 return Container(
@@ -115,7 +121,7 @@ class ChatMsgView extends StatelessWidget {
                   ),
                   const SizedBox(width: 15,),
                   FloatingActionButton(
-                    onPressed: () => chatController.sendMessage(chatController.msgTxtCtrl.text),
+                    onPressed: () => chatController.sendMessage(chatController.msgTxtCtrl.text, receiverId, 'text'),
                     backgroundColor: Colors.blue,
                     elevation: 0,
                     child: const Icon(Icons.send,color: Colors.white,size: 18,),

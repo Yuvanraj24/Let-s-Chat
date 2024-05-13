@@ -18,6 +18,7 @@ class FireStoreUserService {
         'email': email.toLowerCase().trim(),
         'mobileNumber' : mobNum.trim(),
         'createdAt': Timestamp.now().millisecondsSinceEpoch,
+        'opponents' :[]
       });
       return 'success';
     }catch(e){

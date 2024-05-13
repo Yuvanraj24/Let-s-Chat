@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lets_chat/Firebase/Auth/auth_functions.dart';
+import 'package:lets_chat/Views/main_view.dart';
 
 
 
@@ -32,7 +33,7 @@ class SignUpController extends GetxController {
         int authResponse = await firebaseAuthService.registerUser(fullName.text, email.text, phoneNo.text, password.text);
 
         if(authResponse == 200){
-          // Get.offAll(const BottomBarView());
+          Get.offAll(const MainView());
           Get.showSnackbar(const GetSnackBar(
             backgroundColor: Colors.blueGrey,
             message: 'Sign up Success',
