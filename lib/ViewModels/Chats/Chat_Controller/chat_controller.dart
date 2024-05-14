@@ -7,9 +7,7 @@ import 'package:lets_chat/Models/Chats/chat_list_model.dart';
 import 'package:lets_chat/ViewModels/Chats/ChatsList_Controller/chat_list_controller.dart';
 
 class ChatController extends GetxController {
-  RxList<ChatMessageModel> messages = RxList([
-    // ChatMessageModel(messageContent: "Hello, Will", messageType: "text",userType: "receiver"),
-  ]);
+  RxList<ChatMessageModel> messages = RxList([]);
 
   ChatsListController chatsListController = Get.put(ChatsListController());
 
@@ -25,26 +23,25 @@ class ChatController extends GetxController {
             "receiver": receiverId,
             "messageType" : msgType,
             "message" : msg,
-            "msgTime" : msgTime,
+            "msgTime" : msgTime.millisecondsSinceEpoch,
             "msgId" : msgTime.millisecondsSinceEpoch.toString()
           });
-      FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).update({
-        "opponents" : FieldValue.arrayUnion([
-          {
-            "opponentId" : receiverId,
-            "lastMsg" : msg,
-            "lastMsgTime" : msgTime
-          }]),
 
+
+      FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).update({
+        "opponentsId" : FieldValue.arrayUnion([receiverId]),
+        receiverId : {
+          "lastMsg" : msg,
+          "lastMsgTime" : msgTime.millisecondsSinceEpoch
+        }
       });
 
       FirebaseFirestore.instance.collection('users').doc(receiverId).update({
-        "opponents" : FieldValue.arrayUnion([{
-                "opponentId" : FirebaseAuth.instance.currentUser!.uid,
-                "lastMsg" : msg,
-                "lastMsgTime" : msgTime
-              }
-            ])
+        "opponentsId" : FieldValue.arrayUnion([FirebaseAuth.instance.currentUser!.uid]),
+        FirebaseAuth.instance.currentUser!.uid : {
+          "lastMsg" : msg,
+          "lastMsgTime" : msgTime.millisecondsSinceEpoch
+        }
       });
 
     });

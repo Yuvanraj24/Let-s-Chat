@@ -60,4 +60,15 @@ class Utilities{
 
     return formattedDate;
   }
+
+  static String convertDateTimeToTime(int millisecondsSinceEpoch){
+
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
+
+    // Format DateTime to AM/PM time
+    String formattedTime = DateFormat.jm().format(dateTime);
+
+    return formattedTime;
+
+  }
 }
