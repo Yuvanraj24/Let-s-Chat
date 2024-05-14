@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "63457668790",
+    "project_id": "lets-talk-9b2f8",
+    "storage_bucket": "lets-talk-9b2f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63457668790:android:9fa1cf7bf12ee78f8e0017",
+        "android_client_info": {
+          "package_name": "com.siajdynamicinnovations.letschat.lets_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63457668790-j303m78gf4f5ibal1n2sq9e7aufh4lks.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPy7HXzmw6NR8j0PI3Qbty5KzqhdS1Axk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63457668790-j303m78gf4f5ibal1n2sq9e7aufh4lks.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "63457668790-b0sivl8eaadrv2cbib90l9h6m556sjl3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.whatsappUi"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
